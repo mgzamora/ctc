@@ -5,7 +5,7 @@ const cors = require('cors');
 const app = express();
 
 var corsOptions = {
-    origin: 'http://example.com',
+    origin: 'http://localhost:4200',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204 
 }
 
@@ -17,12 +17,12 @@ app.listen(8000, () => {
     console.log("Server started!!!");
 });
 
-app.route('api/rooms').get((req, res) => {
-    res.send({
-        rooms: [{ owner: 'Juan', adderss: 'C/ La cabra, 9' }, 
-                { owner: 'Antonio', address: 'C/ El Pescao, 7' },
-                {owner: 'Manuel', address: 'C/ Antonio Bermúdez, 38'} ]
-    });
+app.route('/api/rooms').get((req, res) => {
+    res.send(
+        [{ owner: 'Juan', address: 'C/ La cabra, 9' }, 
+        { owner: 'Antonio', address: 'C/ El Pescao, 7' },
+        {owner: 'Manuel', address: 'C/ Antonio Bermúdez, 38'} ]
+    );
 });
 
 app.route('/api/rooms/:owner').get((req, res) => {
