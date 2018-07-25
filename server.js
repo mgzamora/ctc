@@ -11,7 +11,7 @@ var corsOptions = {
 
 app.use(bodyParser.json());
 
-app.use(cors(corseOptions));
+app.use(cors(corsOptions));
 
 app.listen(8000, () => {
     console.log("Server started!!!");
