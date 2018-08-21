@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {RoomService, Room} from './services/room.service';
+import {HomeService, Home} from './services/home.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -9,17 +9,17 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent {
 
-  rooms: Room[];
+  rooms: Home[];
 
   title = 'app';
 
-  constructor(private roomService: RoomService,
+  constructor(private homeService: HomeService,
               private http: HttpClient) {
     this.getRooms();
   }
 
   getRooms() {
-    this.roomService.getAllRooms().subscribe((data) => {this.rooms = data; console.log(this.rooms); } );
+    this.homeService.getHomes().subscribe((data) => {this.rooms = data; console.log(this.rooms); } );
   }
 
 }

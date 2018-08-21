@@ -1,6 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 const cors = require('cors');
+const routes = require('./routes');
+const config = require('config');
 
 const app = express();
 
@@ -13,31 +16,21 @@ app.use(bodyParser.json());
 
 app.use(cors(corsOptions));
 
+app.use('/api', routes);
+
 app.listen(8000, () => {
     console.log("Server started!!!");
+    connectMongo();
 });
 
-app.route('/api/rooms').get((req, res) => {
-    res.send(
-        [{ owner: 'Juan', address: 'C/ La cabra, 9' }, 
-        { owner: 'Antonio', address: 'C/ El Pescao, 7' },
-        {owner: 'Manuel', address: 'C/ Antonio Bermúdez, 38'} ]
-    );
-});
+var connectMongo = function(){
+	mongoose.connect(config.get('database'), { useNewUrlParser: true }).
+	then(function(){
+		console.log('Connected correctly to MongoDB: %s\n', config.get('database'));
+	}).catch(err => {
+		console.log(err);
+		throw new Error(err);
+	});
 
-app.route('/api/rooms/:owner').get((req, res) => {
-    const requestedOwner = req.params['owner'];
-    res.send({ name: requestedOwner });
-});
-
-app.route('/api/rooms').post((req, res) => {
-    res.send(201, req.body);
-});
-
-app.route('/api/rooms/:owner').put((req, res) => {
-    res.send(200, req.body);
-});
-
-app.route('/api/cats/:owner').delete((req, res) => {
-    res.sendStatus(204);
-});
+	mongoose.set('debug', config.get('mongooseDebug'));
+};
