@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 let HomeSchema = new Schema({
     address: {type: String, required: true},
     type: {type: String, required: true},
+    location: [{type: Number, required: true}]
     // rooms: [room.Schema],
     // tenants: [person.Schema]
 },
@@ -13,4 +14,4 @@ let HomeSchema = new Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model('home', HomeSchema, 'home');
+module.exports = mongoose.model('home', HomeSchema);

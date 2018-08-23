@@ -1,4 +1,6 @@
 const model = require('../models/home.model');
+const mongoose = require('mongoose');
+const Home = mongoose.model('Home', model.schema);
 
 
 var getAll = (requestData) => {
@@ -23,4 +25,31 @@ var getAll = (requestData) => {
     });
 };
 
+var create = (body) => {
+
+
+    let home = new Home(
+        {
+            address: body.address,
+            location: body.location,
+            type: body.type
+        }
+    );
+
+    return new Promise((resolve, reject) => {
+        home.save((err, results) => {
+            if (err) {
+                console.log('An error ocurred creating Home :(  => %s', err.message);
+                reject(new Error(err));
+                return;                
+            }
+            resolve(results);
+            return;            
+        })
+    })
+
+    
+}
+
 module.exports.getAll = getAll;
+module.exports.create = create;

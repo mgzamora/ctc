@@ -10,15 +10,15 @@ var getAll = function (req, res, next) {
 		});
 };
 
-// var create = function (req, res, next) {
+var create = function (req, res, next) {
 	
-// 	repository.create(req.requestData).then((response) => {
-// 		res.header('Location', response._id);
-// 		res.json(response);
-// 	}).catch((error) => {
-// 		throw new Error(error);
-// 	});
-// };
+	repository.create(req.body).then((response) => {
+		res.header('Location', response._id);
+		res.json(response);
+	}).catch((error) => {
+		throw new Error(error);
+	});
+};
 
 // var find = function (req, res, next) {
 // 	req.requestData.params.id = req.params.id;
@@ -77,6 +77,6 @@ var getAll = function (req, res, next) {
 
 module.exports.getAll = getAll;
 // module.exports.find = find;
-// module.exports.create = create;
+module.exports.create = create;
 // module.exports.update = update;
 // module.exports.remove = remove;

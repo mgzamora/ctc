@@ -15,6 +15,6 @@ export class HomeService {
   constructor(private http: HttpClient) { }
 
   getHomes(): Observable<Home[]> {
-    return this.http.get<Home[]>('http://localhost:8000/api/homes');
+    return this.http.get<Home[]>('http://localhost:8000/api/home');
   }
 }

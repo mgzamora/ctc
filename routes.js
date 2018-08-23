@@ -26,8 +26,8 @@ const homeService = require('./services/home.service');
 //     res.send(200, req.body);
 // });
 
-router.get('/homes', homeService.getAll);
-// router.post('/api/home', homeService.create);
+router.get('/home', homeService.getAll);
+router.post('/home', homeService.create);
 // router.get('/api/home/:id', homeService.find);
 // router.delete('/api/home/:id', homeService.remove);
 // router.put('/api/home/:id', homeService.update);
