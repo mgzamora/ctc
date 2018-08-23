@@ -25,13 +25,13 @@ var find = function (req, res, next) {
 	const id = req.params.id;
 
 	repository.find(id).then((response) => {
-		res.json(response);	
-	}).catch((error) => {
-		if (error.type !== null && error.type === 'notFound') {
-			four0four.send404(req, res, error.message);
+		if (response) {
+			res.json(response);	
 		} else {
-			throw new Error(error);
+			res.send(404);
 		}
+	}).catch((error) => {
+		throw new Error(error);
 	});
 };
 
@@ -48,21 +48,23 @@ var find = function (req, res, next) {
 // 	});
 // };
 
-// var remove = function (req, res, next) {
+var remove = function (req, res, next) {
 	
-// 	repository.remove(req.params.id).then((response) => {
-// 		res.json(response);
-// 	}).catch((error) => {
-// 		if (error.type !== null && error.type === 'notFound') {
-// 			four0four.send404(req, res, error.message);
-// 		} else {
-// 			throw new Error(error);
-// 		}
-// 	});
-// };
+	const id = req.params.id;
+
+	repository.remove(id).then((response) => {
+		res.json(response);
+	}).catch((error) => {
+		if (error.type !== null && error.type === 'notFound') {
+			four0four.send404(req, res, error.message);
+		} else {
+			throw new Error(error);
+		}
+	});
+};
 
 module.exports.getAll = getAll;
 module.exports.find = find;
 module.exports.create = create;
 // module.exports.update = update;
-// module.exports.remove = remove;
+module.exports.remove = remove;

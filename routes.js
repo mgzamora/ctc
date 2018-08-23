@@ -29,7 +29,7 @@ const homeService = require('./services/home.service');
 router.get('/home', homeService.getAll);
 router.post('/home', homeService.create);
 router.get('/home/:id', homeService.find);
-// router.delete('/api/home/:id', homeService.remove);
+router.delete('/home/:id', homeService.remove);
 // router.put('/api/home/:id', homeService.update);
 
 // router.get('/api/room', homeService.getAll);
