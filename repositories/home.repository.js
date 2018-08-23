@@ -79,7 +79,23 @@ var remove = (id) => {
     })
 }
 
+var update = (id, body) => {
+    return new Promise((resolve, reject) => {
+        model.findByIdAndUpdate(id, body, { new: true }).exec((err, results) => {
+            if (err) {
+                console.log('An error ocurred updating a home :(  => %s', err.message);
+                reject(new Error(err));
+                return;
+            }
+
+            resolve(results);
+            return;
+        })
+    })
+}
+
 module.exports.getAll = getAll;
 module.exports.find = find;
 module.exports.create = create;
+module.exports.update = update;
 module.exports.remove = remove;

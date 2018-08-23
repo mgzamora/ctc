@@ -25,7 +25,7 @@ var find = function (req, res, next) {
 
 	const id = req.params.id;
 	if (!utils.isValidId(id)) {
-		res.send(404);
+		res.send(400);
 		return;
 	}
 
@@ -40,24 +40,34 @@ var find = function (req, res, next) {
 	});
 };
 
-// var update = function (req, res) {
+var update = function (req, res) {
 	
-// 	repository.update(req.params.id, req.requestData, req.requestData.updateData).then((response) => {
-// 		res.json(response);
-// 	}).catch((error) => {
-// 		if (error.type !== null && error.type === 'notFound') {
-// 			four0four.send404(req, res, error.message);
-// 		} else {
-// 			throw new Error(error);
-// 		}
-// 	});
-// };
+	const id = req.params.id;
+	if (!utils.isValidId(id)) {
+		res.send(400);
+		return;
+	}
+
+	repository.update(req.params.id, req.body).then((response) => {
+		if (response) {
+			res.json(response);	
+		} else {
+			res.send(404);
+		}
+	}).catch((error) => {
+		if (error.type !== null && error.type === 'notFound') {
+			four0four.send404(req, res, error.message);
+		} else {
+			throw new Error(error);
+		}
+	});
+};
 
 var remove = function (req, res, next) {
 	
 	const id = req.params.id;
 	if (!utils.isValidId(id)) {
-		res.send(404);
+		res.send(400);
 		return;
 	}
 
@@ -75,5 +85,5 @@ var remove = function (req, res, next) {
 module.exports.getAll = getAll;
 module.exports.find = find;
 module.exports.create = create;
-// module.exports.update = update;
+module.exports.update = update;
 module.exports.remove = remove;

@@ -30,7 +30,7 @@ router.get('/home', homeService.getAll);
 router.post('/home', homeService.create);
 router.get('/home/:id', homeService.find);
 router.delete('/home/:id', homeService.remove);
-// router.put('/api/home/:id', homeService.update);
+router.put('/home/:id', homeService.update);
 
 // router.get('/api/room', homeService.getAll);
 // router.post('/api/room', homeService.create);
