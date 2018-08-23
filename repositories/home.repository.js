@@ -64,6 +64,22 @@ var find = (id) => {
     })
 }
 
+var remove = (id) => {
+    return new Promise((resolve, reject) => {
+        model.findByIdAndRemove(id).exec((err, results) => {
+            if (err) {
+                console.log('An error ocurred removing a home :(  => %s', err.message);
+                reject(new Error(err));
+                return;
+            }
+
+            resolve(results);
+            return;
+        })
+    })
+}
+
 module.exports.getAll = getAll;
 module.exports.find = find;
 module.exports.create = create;
+module.exports.remove = remove;

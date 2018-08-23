@@ -1,5 +1,6 @@
 // node imports
 const repository = require('../repositories/home.repository');
+const utils = require('../utils/utils');
 
 var getAll = function (req, res, next) {
 
@@ -23,6 +24,10 @@ var create = function (req, res, next) {
 var find = function (req, res, next) {
 
 	const id = req.params.id;
+	if (!utils.isValidId(id)) {
+		res.send(404);
+		return;
+	}
 
 	repository.find(id).then((response) => {
 		if (response) {
@@ -51,15 +56,19 @@ var find = function (req, res, next) {
 var remove = function (req, res, next) {
 	
 	const id = req.params.id;
+	if (!utils.isValidId(id)) {
+		res.send(404);
+		return;
+	}
 
 	repository.remove(id).then((response) => {
-		res.json(response);
-	}).catch((error) => {
-		if (error.type !== null && error.type === 'notFound') {
-			four0four.send404(req, res, error.message);
+		if (response) {
+			res.json(response);	
 		} else {
-			throw new Error(error);
+			res.send(404);
 		}
+	}).catch((error) => {
+		throw new Error(error);
 	});
 };
 
