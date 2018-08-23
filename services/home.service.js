@@ -20,34 +20,20 @@ var create = function (req, res, next) {
 	});
 };
 
-// var find = function (req, res, next) {
-// 	req.requestData.params.id = req.params.id;
-// 	const id = req.params.id;
-// 	const requestData = req.requestData;
-// 	const mode = req.query.mode;
-// 	repository.find(req.requestData).then((response) => {
-// 		if (mode === 'read') {
-// 			response.views++;
-// 			repository.update(id, requestData, {views: response.views}).then((response) => {
-// 				res.json(response);
-// 			}).catch((error) => {
-// 				if (error.type !== null && error.type === 'notFound') {
-// 					four0four.send404(req, res, error.message);
-// 				} else {
-// 					throw new Error(error);
-// 				}
-// 			});
-// 		}else {
-// 			res.json(response);	
-// 		}
-// 	}).catch((error) => {
-// 		if (error.type !== null && error.type === 'notFound') {
-// 			four0four.send404(req, res, error.message);
-// 		} else {
-// 			throw new Error(error);
-// 		}
-// 	});
-// };
+var find = function (req, res, next) {
+
+	const id = req.params.id;
+
+	repository.find(id).then((response) => {
+		res.json(response);	
+	}).catch((error) => {
+		if (error.type !== null && error.type === 'notFound') {
+			four0four.send404(req, res, error.message);
+		} else {
+			throw new Error(error);
+		}
+	});
+};
 
 // var update = function (req, res) {
 	
@@ -76,7 +62,7 @@ var create = function (req, res, next) {
 // };
 
 module.exports.getAll = getAll;
-// module.exports.find = find;
+module.exports.find = find;
 module.exports.create = create;
 // module.exports.update = update;
 // module.exports.remove = remove;

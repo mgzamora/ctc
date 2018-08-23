@@ -47,9 +47,23 @@ var create = (body) => {
             return;            
         })
     })
+}
 
-    
+var find = (id) => {
+    return new Promise((resolve, reject) => {
+        model.findById(id).exec((err, results) => {
+            if (err) {
+                console.log('An error ocurred :(  => %s', err.message);
+                reject(new Error(err));
+                return;
+            }
+
+            resolve(results);
+            return;
+        })
+    })
 }
 
 module.exports.getAll = getAll;
+module.exports.find = find;
 module.exports.create = create;
